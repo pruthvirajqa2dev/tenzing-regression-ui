@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "@playwright/test": "^1.55.0",
+    "dotenv": "^17.2.1",
+    "playwright": "^1.55.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2",
+    "winston": "^3.17.0"
+  },
+  "devDependencies": {
+    "@cucumber/cucumber": "^12.2.0"
+  }
+}
