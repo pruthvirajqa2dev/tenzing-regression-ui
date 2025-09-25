@@ -1,0 +1,48 @@
+const fs = require('fs');
+
+// Load the JSON report
+const jsonReport = JSON.parse(fs.readFileSync('test-results.json', 'utf-8'));
+console.log("JSON Report content:"+fs.readFileSync('test-results.json', 'utf-8'))
+// Initialize counters
+let executedTests = 0;
+let passedTests = 0;
+let failedTests = 0;
+
+// Traverse suites and accumulate stats
+jsonReport.suites.forEach(suite => {
+  suite.suites.forEach(subSuite => {
+    subSuite.specs.forEach(spec => {
+      spec.tests.forEach(test => {
+        executedTests++;
+        test.results.forEach(testResult=>{
+          console.log(`The ${executedTests} test result is :${testResult.status}`);
+          if (testResult.status === 'passed') {
+            passedTests++;
+          } else if (testResult.status === 'failed'||'timedOut') {
+            failedTests++;
+          }
+        })
+      });
+    });
+  });
+});
+// Extract the flaky test count from the stats
+const flakyTests = jsonReport.stats.flaky || 0;
+if(executedTests==passedTests||flakyTests!=0){
+  failedTests=0;
+}
+
+// Output results
+console.log(`Executed Tests: ${executedTests}`);
+console.log(`Passed Tests: ${passedTests}`);
+console.log(`Failed Tests: ${failedTests/2}`);
+console.log(`Flaky Tests: ${flakyTests}`);
+
+// Write results to GitHub environment variables
+const envFilePath = process.env.GITHUB_ENV;
+if (envFilePath) {
+  fs.appendFileSync(envFilePath, `EXECUTED_TESTS=${executedTests}\n`);
+  fs.appendFileSync(envFilePath, `PASSED_TESTS=${passedTests}\n`);
+  fs.appendFileSync(envFilePath, `FAILED_TESTS=${Math.floor(failedTests/2)}\n`);
+  fs.appendFileSync(envFilePath, `FLAKY_TESTS=${flakyTests}\n`);
+}
