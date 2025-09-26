@@ -40,7 +40,7 @@ jobs:
               id: run-tests
               run: |
                   set +e
-                  npx playwright test --project=${{ matrix.project }} --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --workers=1 --reporter=html;
+                  npx playwright test --project=${{ matrix.project }} --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --workers=1;
                   echo "STATUS_CODE=$?" >> $GITHUB_ENV
                   #Rename the results file to include shard index
                   mv test-results.json test-results-${{ matrix.shardIndex }}.json
