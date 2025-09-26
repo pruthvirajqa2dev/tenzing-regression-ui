@@ -2,3 +2,7 @@
 node_modules/
 blob-report/
 logs/
+playwright-report/
+test-results.json
+report/
+published-reports/
