@@ -24,8 +24,8 @@ jobs:
             fail-fast: false
             matrix:
                 project: [chromium]
-                shardIndex: [1]
-                shardTotal: [1]
+                shardIndex: [1,2]
+                shardTotal: [2]
 
         steps:
             - uses: actions/checkout@v4
@@ -215,7 +215,8 @@ jobs:
               run: |
                   TIMESTAMP=$(date +'%Y-%m-%d_%H-%M-%S')
                   mkdir -p published-reports/$TIMESTAMP
-                  cp -r playwright-report/* published-reports/$TIMESTAMP
+                  ls published-reports
+                  cp -r /home/runner/work/tenzing-regression-ui/tenzing-regression-ui/playwright-report/* published-reports/$TIMESTAMP
                   echo "TIMESTAMP=$TIMESTAMP" >> $GITHUB_ENV
             - name: Download Shard Statuses
               uses: actions/download-artifact@v4

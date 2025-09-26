@@ -35,4 +35,22 @@ test.describe("Login and Logout " + `${process.env.test_env}`.toUpperCase(), () 
         
         
         });
+           test("Login and Logout 2 ", async ({ page }, testInfo) => {
+       
+        //Login
+        const loginPage = new LoginPage(page, testInfo);
+        await loginPage.navigateTo("/");
+        await expect(page).toHaveTitle(expectedTexts.defaultPageTitle);
+
+          //Login
+            const homepage = await test.step(
+                `Login using Tenzing Email` ,
+                async () => {
+                    return await login(page, testInfo);
+                }
+            );
+        await expect(page).toHaveTitle(expectedTexts.adminLoginPageTitle);
+        
+        
+        });
 });
