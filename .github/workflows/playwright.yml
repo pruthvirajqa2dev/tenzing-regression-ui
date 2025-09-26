@@ -201,6 +201,14 @@ jobs:
             - name: Pull from gh-pages branch
               run: |
                   git fetch origin
+                  if ! git ls-remote --exit-code --heads origin gh-pages; then
+                    git checkout --orphan gh-pages
+                    git rm -rf .
+                    echo "<h1>GitHub Pages Initial Commit</h1>" > index.html
+                    git add index.html
+                    git commit -m "Initial gh-pages commit"
+                    git push origin gh-pages
+                  fi
                   git checkout gh-pages  # Checkout the existing gh-pages branch
                   git pull --rebase origin gh-pages || echo "No changes to pull"
             - name: Add Current Report with Timestamp
