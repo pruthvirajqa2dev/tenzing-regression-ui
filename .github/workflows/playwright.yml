@@ -24,8 +24,8 @@ jobs:
             fail-fast: false
             matrix:
                 project: [chromium]
-                shardIndex: [1, 2]
-                shardTotal: [2]
+                shardIndex: [1]
+                shardTotal: [1]
 
         steps:
             - uses: actions/checkout@v4
