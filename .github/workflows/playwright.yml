@@ -211,6 +211,13 @@ jobs:
                   fi
                   git checkout gh-pages  # Checkout the existing gh-pages branch
                   git pull --rebase origin gh-pages || echo "No changes to pull"
+            - name: Copy Playwright report (if exists)
+              run: |
+               if [ -d "playwright-report" ]; then
+                 cp -r playwright-report/* destination/
+               else
+                 echo "No report directory found."
+               fi
             - name: Add Current Report with Timestamp
               run: |
                   TIMESTAMP=$(date +'%Y-%m-%d_%H-%M-%S')
