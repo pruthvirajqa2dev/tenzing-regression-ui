@@ -230,6 +230,8 @@ jobs:
                 mkdir -p published-reports/$TIMESTAMP
                 
                 # Debug: Check playwright-report directory
+                echo "Present working directory: "
+                pwd
                 echo "Playwright report directory contents:"
                 ls -la playwright-report || echo "playwright-report not found"
                 
