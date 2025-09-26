@@ -220,10 +220,30 @@ jobs:
                fi
             - name: Add Current Report with Timestamp
               run: |
-                  TIMESTAMP=$(date +'%Y-%m-%d_%H-%M-%S')
-                  mkdir -p published-reports/$TIMESTAMP
-                  cp -r playwright-report/* published-reports/$TIMESTAMP
-                  echo "TIMESTAMP=$TIMESTAMP" >> $GITHUB_ENV
+                # Debug: List contents before operations
+                echo "Current directory contents:"
+                ls -la
+                
+                TIMESTAMP=$(date +'%Y-%m-%d_%H-%M-%S')
+                
+                # Create directory first
+                mkdir -p published-reports/$TIMESTAMP
+                
+                # Debug: Check playwright-report directory
+                echo "Playwright report directory contents:"
+                ls -la playwright-report || echo "playwright-report not found"
+                
+                # Copy with error handling
+                if [ -d "playwright-report" ] && [ "$(ls -A playwright-report)" ]; then
+                  cp -r playwright-report/* published-reports/$TIMESTAMP/
+                  echo "Report copied successfully"
+                else
+                  echo "Error: playwright-report directory is empty or not found"
+                  echo "Current working directory: $(pwd)"
+                  find . -name "playwright-report" -type d
+                fi
+                
+                echo "TIMESTAMP=$TIMESTAMP" >> $GITHUB_ENV
             - name: Download Shard Statuses
               uses: actions/download-artifact@v4
               with:
