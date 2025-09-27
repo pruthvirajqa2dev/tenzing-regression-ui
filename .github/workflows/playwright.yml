@@ -456,7 +456,7 @@ jobs:
                       </div>
                   </div>
                   </div>
-                  <footer><p>© 2024 Playwright Test Reports. All rights reserved.</p></footer>
+                  <footer><p>© 2025 Playwright Test Reports. All rights reserved.</p></footer>
                   <script>
                     const testHistory = $CONSOLIDATED_HISTORY;
                     //console.log("testHistory: "+ testHistory);
@@ -695,8 +695,8 @@ jobs:
               run: |
                   STATUS=$(jq -r '.status' published-reports/$TIMESTAMP/status.json)
                   echo "FINAL_STATUS=$STATUS" >> $GITHUB_ENV
-            - name: Wait for 2 minutes before sending email
-              run: sleep 120
+            - name: Wait for 1 minutes before sending email
+              run: sleep 60
             - name: Notify on Execution
               if: success()
               uses: dawidd6/action-send-mail@v4
