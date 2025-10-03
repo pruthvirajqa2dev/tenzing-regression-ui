@@ -32,10 +32,11 @@ test.describe("Login and Logout " + `${process.env.test_env}`.toUpperCase(), () 
                 }
             );
         await expect(page).toHaveTitle(expectedTexts.adminLoginPageTitle);
+        await homepage.clickButtonUsingRole("☰");
         
         
         });
-    test("Login and Logout 2 ", async ({ page }, testInfo) => {
+    test("Commyunity - Pay Scales ", async ({ page }, testInfo) => {
        
         //Login
         const loginPage = new LoginPage(page, testInfo);
@@ -49,6 +50,7 @@ test.describe("Login and Logout " + `${process.env.test_env}`.toUpperCase(), () 
                     return await login(page, testInfo);
                 }
             );
-        await expect(page).toHaveTitle(expectedTexts.adminLoginPageTitle);    
+        await expect(page).toHaveTitle(expectedTexts.adminLoginPageTitle);
+
         });
 });

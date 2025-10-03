@@ -722,7 +722,7 @@ jobs:
                       Tenzing Education QA Team
                   to: pruthvirajpardeshi@hotmail.com
                   from: ${{ secrets.EMAIL_USERNAME }}
-                  cc: admin@tenzingtechnologies.com
+                  cc: admin@tenzingtechnologies.com;matt.usher@tenzing-education.co.uk;dan.smith@tenzing-education.co.uk;Leelavathi@tenzingtechnologies.com;ben.cowley@tenzing-education.co.uk
     Deploy-to-GitHub-Pages:
         # Add a dependency to the merge-reports job
         needs: merge-reports
