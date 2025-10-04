@@ -2,7 +2,7 @@ import AdminHomePage from "./AdminHomePage";
 import BasePage from "./BasePage";
 import * as fs from "fs";
 import * as path from "path";
-import { TestInfo } from "@playwright/test";
+import { TestInfo,expect } from "@playwright/test";
 /**
  * @author: @pruthvirajqa2dev
  * SIMS Finance Login page class with locators
@@ -18,6 +18,21 @@ export default class LoginPage extends BasePage {
     private readonly loginBtnLocator = "[type='submit']";
 
     //Actions
+    /**
+     * This methods verifies key page elements are visible after loading
+     */
+    async expectPageElementsVisibilityOnLoad() {
+        //Email Address input
+        const emailAddressInput = this.page.locator(this.emailAddressInputLocator); 
+        await expect(emailAddressInput).toBeVisible();
+
+        //Password input
+        const passwordInput = this.page.locator(this.passwordInputLocator); 
+        await expect(passwordInput).toBeVisible();
+        //Password input
+        const loginBtn = this.page.locator(this.loginBtnLocator); 
+        await expect(loginBtn).toBeVisible();   
+    }
     /**
      * Fills in the username and password fields on the login page.
      *

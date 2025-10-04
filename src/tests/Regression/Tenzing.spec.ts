@@ -13,44 +13,68 @@ async function login(page: Page, testInfo: TestInfo) {
         getCredentials(tenzing_email),
         testInfo
     );
+    
     return homepage;
 }
-test.describe("Login and Logout " + `${process.env.test_env}`.toUpperCase(), () => {
+test.describe("Regression " + `${process.env.test_env}`.toUpperCase(), () => {
     //Test case 1
     test("Login and Logout  ", async ({ page }, testInfo) => {
        
         //Login
-        const loginPage = new LoginPage(page, testInfo);
+        var loginPage = new LoginPage(page, testInfo);
         await loginPage.navigateTo("/");
-        await expect(page).toHaveTitle(expectedTexts.defaultPageTitle);
-
-          //Login
-            const homepage = await test.step(
-                `Login using Tenzing Email` ,
-                async () => {
-                    return await login(page, testInfo);
-                }
-            );
-        await expect(page).toHaveTitle(expectedTexts.adminLoginPageTitle);
-        await homepage.clickButtonUsingRole("☰");
-        
-        
-        });
-    test("Commyunity - Pay Scales ", async ({ page }, testInfo) => {
-       
+        await expect(page).toHaveTitle(expectedTexts.defaultPageTitle);        
+        await loginPage.expectPageElementsVisibilityOnLoad();
         //Login
-        const loginPage = new LoginPage(page, testInfo);
-        await loginPage.navigateTo("/");
-        await expect(page).toHaveTitle(expectedTexts.defaultPageTitle);
-
-          //Login
-            const homepage = await test.step(
-                `Login using Tenzing Email` ,
+        const homepage = await test.step(
+            `Login using Tenzing Email` ,
                 async () => {
                     return await login(page, testInfo);
                 }
             );
         await expect(page).toHaveTitle(expectedTexts.adminLoginPageTitle);
-
+        //Logout
+        // await homepage.clickButtonUsingRole("☰");
+        loginPage = await test.step(
+                `Logout from Application` ,
+                async () => {
+                    return await homepage.clickSignOutBtn(testInfo);;
+                }
+            );
+        await loginPage.expectPageElementsVisibilityOnLoad();        
         });
+    test("Community - Add Pay Scales ", async ({ page }, testInfo) => {    
+        //Login
+        var loginPage = new LoginPage(page, testInfo);
+        await loginPage.navigateTo("/");
+        await expect(page).toHaveTitle(expectedTexts.defaultPageTitle);        
+        await loginPage.expectPageElementsVisibilityOnLoad();
+        //Login
+        const homepage = await test.step(
+            `Login using Tenzing Email` ,
+                async () => {
+                    return await login(page, testInfo);
+                }
+            );
+        await expect(page).toHaveTitle(expectedTexts.adminLoginPageTitle);
+        
+        const communityPage = await test.step(
+            `Navigate to Commyunity - Pay Scales` ,
+                async () => {
+                    return await homepage.navigateToCommunityPage(testInfo);
+                }
+            );   
+        await communityPage.clickAddNewPayScaleBtn();
+        await communityPage.verifyDialogHeaderText(
+            expectedTexts.addPayScalesDialogHeader);
+        
+        await communityPage.verifyDialogStartText(
+            expectedTexts.mountainBgTextForAddPayScalesDialogPart1,
+            expectedTexts.mountainBgTextForAddPayScalesDialogPart2);
+        //Todo : Enter Name and description
+        //Todo : Enter Logo
+        //Todo: Click Next
+        //Todo: Upload Excel Template
+        await communityPage.clickDialogCloseBtn();
+    });
 });

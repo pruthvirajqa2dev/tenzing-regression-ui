@@ -1,10 +1,12 @@
 import BasePage from "./BasePage";
 import * as fs from "fs";
 import * as path from "path";
-import { TestInfo } from "@playwright/test";
+import test, { expect,TestInfo } from "@playwright/test";
+import LoginPage from "./LoginPage";
+import CommunityPage from "./CommunityPage";
 /**
  * @author: @pruthvirajqa2dev
- * SIMS Finance Login page class with locators
+ * Tenzing Admin page class with locators
  */
 /**
  * Represents the login page of the application.
@@ -12,10 +14,33 @@ import { TestInfo } from "@playwright/test";
  */
 export default class AdminHomePage extends BasePage {
     //Locators
-    private readonly emailAddressInputLocator = "[typeof='email']";
-    private readonly passwordInputLocator = "[type='password']";
-    private readonly loginBtnLocator = "[type='submit']]";
-
-    //Actions
    
+    private readonly signOutBtnLocator = ".nodetext:has-text('Sign out')";
+    private readonly commyunityPayScalesLinkLocator = "[href='/admin/payscales']";
+    //Actions
+    /**
+     * 
+     * @param testInfo 
+     * @returns 
+     */
+   async logout(testInfo: TestInfo): Promise<LoginPage> {      
+        const loginPage: LoginPage = await this.clickSignOutBtn(testInfo);
+        return loginPage;
+   }
+   /**
+    * 
+    * @param testInfo - Test information object
+    * @returns 
+    */
+   async clickSignOutBtn(testInfo: TestInfo): Promise<LoginPage> {
+        await this.page.locator(this.signOutBtnLocator).click();
+        const loginPage = new LoginPage(this.page,testInfo);
+        return loginPage;
+    }
+
+    async navigateToCommunityPage(testInfo: TestInfo): Promise<CommunityPage> {
+        await this.page.locator(this.commyunityPayScalesLinkLocator).click();
+        const communityPage = new CommunityPage(this.page,testInfo);
+        return communityPage;
+    }
 }

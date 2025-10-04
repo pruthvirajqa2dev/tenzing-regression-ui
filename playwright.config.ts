@@ -37,9 +37,9 @@ console.log(`Browser: ${process.env.BROWSER || "chromium"}`);
  */
 export default defineConfig({
     expect: {
-        timeout: 30 * 1000 // 60 seconds
+        timeout: 60 * 1000 // 60 seconds
     },
-    timeout: 30 * 1000,
+    timeout: 65 * 1000,
     testDir: "./src/tests",
     outputDir: "C:/temp/playwright-test-results",
     /* Run tests in files in parallel */

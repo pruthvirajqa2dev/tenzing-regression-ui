@@ -1,4 +1,7 @@
 {
     "adminLoginPageTitle":"Not set",
-    "defaultPageTitle":""
+    "defaultPageTitle":"",
+    "addPayScalesDialogHeader":"Pay Scale - Adding a PayScale",
+    "mountainBgTextForAddPayScalesDialogPart1":"What Pay Scale would you like to add?",
+    "mountainBgTextForAddPayScalesDialogPart2":"Complete the text field details to add in a Pay Scale."
 }

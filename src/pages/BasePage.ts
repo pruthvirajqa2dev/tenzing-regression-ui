@@ -17,7 +17,11 @@ export default abstract class BasePage {
         this.page = page;
     }
     //Locators
-    
+    protected readonly dialogHeaderLocator = ".e-dlg-header";
+    protected readonly startTextLocator = ".text-start";
+    protected readonly dialogCloseBtnLocator = "[title='Close']";
+    protected readonly nameInputLocator = "label:has-text('Name') + input";
+    protected readonly descriptionInputLocator = "label:has-text('Description') + input";
     //Actions
 
     // Common navigation methods
@@ -351,6 +355,20 @@ export default abstract class BasePage {
     async scrollToElementUsingHandle(locator: string) {
         const elementHandle = await this.page.locator(locator).elementHandle();
         await elementHandle?.scrollIntoViewIfNeeded();
+    }
+    //Specific methods
+    async verifyDialogHeaderText(expectedHeaderText: string): Promise<void> {
+        const dialogHeader = this.page.locator(this.dialogHeaderLocator);
+        await expect(dialogHeader).toHaveText(expectedHeaderText);
+    }
+
+    async verifyDialogStartText(expectedStartTextPart1: string, expectedStartTextPart2: string): Promise<void> {
+        const dialogStartText = this.page.locator(this.startTextLocator);
+        await expect(dialogStartText).toContainText(expectedStartTextPart1);
+        await expect(dialogStartText).toContainText(expectedStartTextPart2);
+    }
+    async clickDialogCloseBtn(): Promise<void> {    
+        await this.page.locator(this.dialogCloseBtnLocator).click();
     }
     
 }
