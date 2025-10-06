@@ -2,6 +2,9 @@
     "adminLoginPageTitle":"Not set",
     "defaultPageTitle":"",
     "addPayScalesDialogHeader":"Pay Scale - Adding a PayScale",
+    "uploadingPayScalesDialogHeader":"Pay Scale  - Uploading",
     "mountainBgTextForAddPayScalesDialogPart1":"What Pay Scale would you like to add?",
-    "mountainBgTextForAddPayScalesDialogPart2":"Complete the text field details to add in a Pay Scale."
+    "mountainBgTextForUploadingDialogPart1":"What Pay scale point would you like to add?",
+    "mountainBgTextForAddPayScalesDialogPart2":"Complete the text field details to add in a Pay Scale.",
+    "mountainBgTextForUploadingDialogPart2":"Browse your computer for a completed template to upload."
 }

@@ -14,11 +14,28 @@ import LoginPage from "./LoginPage";
 export default class CommunityPage extends BasePage {
     //Locators
     private readonly addNewPayScaleBtnText = "Add New Pay Scale";
+    private readonly communityPayScalesLocator = ".tree:has-text('Pay Scales')";
+    private readonly nameInputLocator = "div:has-text('Name:') + div input";
+    private readonly descrInputLocator = "div:has-text('Description:') + div input";
+    private readonly _fileUploadInputLocator = "#fileUpload";
+    public get fileUploadInputLocator() {
+        return this._fileUploadInputLocator;
+    }
     
     // private readonly commyunityPayScalesLinkLocator = "[href='/admin/payscales']";
     //Actions
     async clickAddNewPayScaleBtn(): Promise<void> {      
-        await this.page.getByRole('button', { name: this.addNewPayScaleBtnText }).click();       
+        await this.clickButtonUsingRole(this.addNewPayScaleBtnText);       
+    }
+    async clickPayScalesLink(): Promise<void> {
+        await this.click(this.communityPayScalesLocator);
+    }
+    async fillNameInput(name: string): Promise<void> {
+        await this.fill(this.nameInputLocator, name);
+    }
+    
+    async fillDescrInput(descr: string): Promise<void> {
+        await this.fill(this.descrInputLocator, descr);
     }
    
     

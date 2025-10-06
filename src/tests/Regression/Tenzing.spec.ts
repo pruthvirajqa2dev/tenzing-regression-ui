@@ -2,8 +2,10 @@ import test, { expect, Page, TestInfo } from "@playwright/test";
 import LoginPage from "../../pages/LoginPage";
 import ENV from "../../config/env";
 import expectedTexts from "../../data/expectedTexts.json";
+import paths from "../../data/paths.json";
 import { getCredentials } from "../../utils/credentials";
 import AdminHomePage from "../../pages/AdminHomePage";
+import path from 'path';
 
 const tenzing_email: string = ENV.TENZING_EMAIL ?? "";
 
@@ -63,18 +65,42 @@ test.describe("Regression " + `${process.env.test_env}`.toUpperCase(), () => {
                 async () => {
                     return await homepage.navigateToCommunityPage(testInfo);
                 }
-            );   
+            );
+        await communityPage.clickPayScalesLink();   
         await communityPage.clickAddNewPayScaleBtn();
+        //Add Pay Scales Dialog
+        //Verifying Header and Start Text
         await communityPage.verifyDialogHeaderText(
-            expectedTexts.addPayScalesDialogHeader);
+            expectedTexts.addPayScalesDialogHeader
+        );
         
         await communityPage.verifyDialogStartText(
             expectedTexts.mountainBgTextForAddPayScalesDialogPart1,
-            expectedTexts.mountainBgTextForAddPayScalesDialogPart2);
-        //Todo : Enter Name and description
-        //Todo : Enter Logo
-        //Todo: Click Next
-        //Todo: Upload Excel Template
-        await communityPage.clickDialogCloseBtn();
+            expectedTexts.mountainBgTextForAddPayScalesDialogPart2
+        );
+        //Filling Name and Description
+        await communityPage.fillNameInput("Test Pay Scale");
+        await communityPage.fillDescrInput("This is test pay scale description");
+        await communityPage.clickDialogNextBtn();
+        //Uploading 
+        //Verifying Header and Start Text
+        await communityPage.verifyDialogHeaderText(
+            expectedTexts.uploadingPayScalesDialogHeader
+        );
+        
+        await communityPage.verifyDialogStartText(
+            expectedTexts.mountainBgTextForUploadingDialogPart1,
+            expectedTexts.mountainBgTextForUploadingDialogPart2
+        );        
+        const filePath = path.resolve(
+            paths.payscalesPath
+        );
+        await page.locator(communityPage.fileUploadInputLocator).setInputFiles(filePath);
+        //TODO: Need to add verification for file uploaded successfully
+        //TODO: Check the start text at preview upload dialog
+        //Save
+        
+
+        // await communityPage.clickDialogCloseBtn();
     });
 });

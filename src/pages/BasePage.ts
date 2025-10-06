@@ -20,7 +20,6 @@ export default abstract class BasePage {
     protected readonly dialogHeaderLocator = ".e-dlg-header";
     protected readonly startTextLocator = ".text-start";
     protected readonly dialogCloseBtnLocator = "[title='Close']";
-    protected readonly nameInputLocator = "label:has-text('Name') + input";
     protected readonly descriptionInputLocator = "label:has-text('Description') + input";
     //Actions
 
@@ -81,8 +80,8 @@ export default abstract class BasePage {
      * @param text
      */
     async fill(locator: string, text: string) {
-        await this.page.locator(locator).click();
-        await this.page.locator(locator).fill(text, { force: true });
+        await this.page.locator(locator).first().click();
+        await this.page.locator(locator).first().fill(text, { force: true });
     }
     /**
      *
@@ -325,8 +324,8 @@ export default abstract class BasePage {
     async clickButtonUsingRole(name: string) {
         await this.page
             .getByRole("button", {
-                name: name,
-                exact: true
+                name: name
+                // exact: true
             })
             .click();
     }
@@ -369,6 +368,9 @@ export default abstract class BasePage {
     }
     async clickDialogCloseBtn(): Promise<void> {    
         await this.page.locator(this.dialogCloseBtnLocator).click();
+    }
+    async clickDialogNextBtn(): Promise<void> {    
+        await this.clickButtonUsingRole("Next");
     }
     
 }

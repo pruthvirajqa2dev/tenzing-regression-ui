@@ -7,7 +7,7 @@ import logger from "./src/logging/logger";
  */
 
 const dotenv = require("dotenv");
-const defaultEnv = "qa";
+const defaultEnv = "dev";
 if (process.env.test_env) {
     dotenv.config({
         path: `${__dirname}//src//config//.env.${process.env.test_env}`,

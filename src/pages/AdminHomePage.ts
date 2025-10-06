@@ -16,7 +16,8 @@ export default class AdminHomePage extends BasePage {
     //Locators
    
     private readonly signOutBtnLocator = ".nodetext:has-text('Sign out')";
-    private readonly commyunityPayScalesLinkLocator = "[href='/admin/payscales']";
+    private readonly communityFirstColumnLocator = "[href='/admin/payscales']";
+    
     //Actions
     /**
      * 
@@ -39,8 +40,9 @@ export default class AdminHomePage extends BasePage {
     }
 
     async navigateToCommunityPage(testInfo: TestInfo): Promise<CommunityPage> {
-        await this.page.locator(this.commyunityPayScalesLinkLocator).click();
+        await this.click(this.communityFirstColumnLocator)
         const communityPage = new CommunityPage(this.page,testInfo);
         return communityPage;
     }
+    
 }
