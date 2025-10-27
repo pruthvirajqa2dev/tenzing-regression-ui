@@ -2,7 +2,7 @@ import AdminHomePage from "./AdminHomePage";
 import BasePage from "./BasePage";
 import * as fs from "fs";
 import * as path from "path";
-import { TestInfo,expect } from "@playwright/test";
+import { TestInfo, expect } from "@playwright/test";
 /**
  * @author: @pruthvirajqa2dev
  * SIMS Finance Login page class with locators
@@ -12,26 +12,28 @@ import { TestInfo,expect } from "@playwright/test";
  * Extends the BasePage class to inherit common page functionalities.
  */
 export default class LoginPage extends BasePage {
-    //Locators
+    //Element Locators
     private readonly emailAddressInputLocator = "[typeof='email']";
     private readonly passwordInputLocator = "[type='password']";
     private readonly loginBtnLocator = "[type='submit']";
 
-    //Actions
+    //Actions on elements
     /**
      * This methods verifies key page elements are visible after loading
      */
     async expectPageElementsVisibilityOnLoad() {
         //Email Address input
-        const emailAddressInput = this.page.locator(this.emailAddressInputLocator); 
+        const emailAddressInput = this.page.locator(
+            this.emailAddressInputLocator
+        );
         await expect(emailAddressInput).toBeVisible();
 
         //Password input
-        const passwordInput = this.page.locator(this.passwordInputLocator); 
+        const passwordInput = this.page.locator(this.passwordInputLocator);
         await expect(passwordInput).toBeVisible();
-        //Password input
-        const loginBtn = this.page.locator(this.loginBtnLocator); 
-        await expect(loginBtn).toBeVisible();   
+        //Login Button input
+        const loginBtn = this.page.locator(this.loginBtnLocator);
+        await expect(loginBtn).toBeVisible();
     }
     /**
      * Fills in the username and password fields on the login page.
@@ -40,7 +42,9 @@ export default class LoginPage extends BasePage {
      * @param password - The password to be entered.
      */
     async fillEmailAddressAndPassword(emailAddress: string, password: string) {
-        await this.page.locator(this.emailAddressInputLocator).fill(emailAddress);
+        await this.page
+            .locator(this.emailAddressInputLocator)
+            .fill(emailAddress);
         await this.page.locator(this.passwordInputLocator).fill(password);
     }
 

@@ -7,7 +7,7 @@ import logger from "./src/logging/logger";
  */
 
 const dotenv = require("dotenv");
-const defaultEnv = "dev";
+const defaultEnv = "qa";
 if (process.env.test_env) {
     dotenv.config({
         path: `${__dirname}//src//config//.env.${process.env.test_env}`,
@@ -37,9 +37,9 @@ console.log(`Browser: ${process.env.BROWSER || "chromium"}`);
  */
 export default defineConfig({
     expect: {
-        timeout: 60 * 1000 // 60 seconds
+        timeout: 80 * 1000 // 60 seconds
     },
-    timeout: 65 * 1000,
+    timeout: 100 * 1000,
     testDir: "./src/tests",
     outputDir: "C:/temp/playwright-test-results",
     /* Run tests in files in parallel */

@@ -20,7 +20,10 @@ export default abstract class BasePage {
     protected readonly dialogHeaderLocator = ".e-dlg-header";
     protected readonly startTextLocator = ".text-start";
     protected readonly dialogCloseBtnLocator = "[title='Close']";
-    protected readonly descriptionInputLocator = "label:has-text('Description') + input";
+    protected readonly descriptionInputLocator =
+        "label:has-text('Description') + input";
+
+    protected readonly dialogContentLocator = ".e-dlg-content";
     //Actions
 
     // Common navigation methods
@@ -126,7 +129,89 @@ export default abstract class BasePage {
      * @returns
      */
     async getByRole(
-        role:"alert"|"alertdialog"|"application"|"article"|"banner"|"blockquote"|"button"|"caption"|"cell"|"checkbox"|"code"|"columnheader"|"combobox"|"complementary"|"contentinfo"|"definition"|"deletion"|"dialog"|"directory"|"document"|"emphasis"|"feed"|"figure"|"form"|"generic"|"grid"|"gridcell"|"group"|"heading"|"img"|"insertion"|"link"|"list"|"listbox"|"listitem"|"log"|"main"|"marquee"|"math"|"meter"|"menu"|"menubar"|"menuitem"|"menuitemcheckbox"|"menuitemradio"|"navigation"|"none"|"note"|"option"|"paragraph"|"presentation"|"progressbar"|"radio"|"radiogroup"|"region"|"row"|"rowgroup"|"rowheader"|"scrollbar"|"search"|"searchbox"|"separator"|"slider"|"spinbutton"|"status"|"strong"|"subscript"|"superscript"|"switch"|"tab"|"table"|"tablist"|"tabpanel"|"term"|"textbox"|"time"|"timer"|"toolbar"|"tooltip"|"tree"|"treegrid"|"treeitem",
+        role:
+            | "alert"
+            | "alertdialog"
+            | "application"
+            | "article"
+            | "banner"
+            | "blockquote"
+            | "button"
+            | "caption"
+            | "cell"
+            | "checkbox"
+            | "code"
+            | "columnheader"
+            | "combobox"
+            | "complementary"
+            | "contentinfo"
+            | "definition"
+            | "deletion"
+            | "dialog"
+            | "directory"
+            | "document"
+            | "emphasis"
+            | "feed"
+            | "figure"
+            | "form"
+            | "generic"
+            | "grid"
+            | "gridcell"
+            | "group"
+            | "heading"
+            | "img"
+            | "insertion"
+            | "link"
+            | "list"
+            | "listbox"
+            | "listitem"
+            | "log"
+            | "main"
+            | "marquee"
+            | "math"
+            | "meter"
+            | "menu"
+            | "menubar"
+            | "menuitem"
+            | "menuitemcheckbox"
+            | "menuitemradio"
+            | "navigation"
+            | "none"
+            | "note"
+            | "option"
+            | "paragraph"
+            | "presentation"
+            | "progressbar"
+            | "radio"
+            | "radiogroup"
+            | "region"
+            | "row"
+            | "rowgroup"
+            | "rowheader"
+            | "scrollbar"
+            | "search"
+            | "searchbox"
+            | "separator"
+            | "slider"
+            | "spinbutton"
+            | "status"
+            | "strong"
+            | "subscript"
+            | "superscript"
+            | "switch"
+            | "tab"
+            | "table"
+            | "tablist"
+            | "tabpanel"
+            | "term"
+            | "textbox"
+            | "time"
+            | "timer"
+            | "toolbar"
+            | "tooltip"
+            | "tree"
+            | "treegrid"
+            | "treeitem",
         options?: { name?: string; hidden?: boolean; exact?: boolean }
     ): Promise<Locator> {
         return this.page.getByRole(role, options);
@@ -329,7 +414,7 @@ export default abstract class BasePage {
             })
             .click();
     }
-   
+
     /**
      *
      * @param text
@@ -337,7 +422,7 @@ export default abstract class BasePage {
     async expectTextNotToBeNull(text: string | null) {
         expect(text).not.toBeNull();
     }
-    
+
     /**
      *
      * @param page
@@ -346,7 +431,7 @@ export default abstract class BasePage {
     async verifyPageURL(page: Page, url: string) {
         expect(page.url()).toContain(url);
     }
-   
+
     /**
      *
      * @param locator
@@ -361,16 +446,32 @@ export default abstract class BasePage {
         await expect(dialogHeader).toHaveText(expectedHeaderText);
     }
 
-    async verifyDialogStartText(expectedStartTextPart1: string, expectedStartTextPart2: string): Promise<void> {
+    async verifyDialogStartText(
+        expectedStartTextPart1: string,
+        expectedStartTextPart2: string
+    ): Promise<void> {
+        console.log(
+            "Verifying dialog start text parts:",
+            expectedStartTextPart1,
+            expectedStartTextPart2
+        );
         const dialogStartText = this.page.locator(this.startTextLocator);
         await expect(dialogStartText).toContainText(expectedStartTextPart1);
         await expect(dialogStartText).toContainText(expectedStartTextPart2);
     }
-    async clickDialogCloseBtn(): Promise<void> {    
+    async clickDialogCloseBtn(): Promise<void> {
         await this.page.locator(this.dialogCloseBtnLocator).click();
     }
-    async clickDialogNextBtn(): Promise<void> {    
+    async clickDialogNextBtn(): Promise<void> {
         await this.clickButtonUsingRole("Next");
     }
-    
+    async clickDialogSaveBtn(): Promise<void> {
+        await this.clickButtonUsingRole("Save");
+    }
+    async verifyDialogHeaderContent(
+        expectedHeaderContent: string
+    ): Promise<void> {
+        const dialogHeader = this.page.locator(this.dialogContentLocator);
+        await expect(dialogHeader).toHaveText(expectedHeaderContent);
+    }
 }

@@ -1,11 +1,8 @@
 import { decryptPassword } from "./encryptor";
 import ENV from "../config/env";
 
-export function getCredentials(
-    user: string,
-): [string, string] {
-    const username =
-        user;
+export function getCredentials(user: string): [string, string] {
+    const username = user;
     const encryptedPassword = ENV.PASSWORD;
 
     if (!username || !encryptedPassword) {
