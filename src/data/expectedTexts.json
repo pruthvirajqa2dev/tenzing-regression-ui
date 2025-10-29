@@ -2,6 +2,7 @@
     "adminLoginPageTitle": "Not set",
     "defaultPageTitle": "",
     "addPayScalesDialogHeader": "Pay Scale - Adding a PayScale",
+    "addJobRoleDialogHeader": "Job Role",
     "uploadingPayScalesDialogHeader": "Pay Scale  - Uploading",
     "uploadingGradesDialogHeader": "Grades  - Uploading",
     "mountainBgTextForAddPayScalesDialogPart1": "What Pay Scale would you like to add?",
@@ -31,5 +32,9 @@
     "mountainBgTextForUploadingGradesDialogPart1": "What Grade would you like to add?",
     "mountainBgTextForUploadingGradesDialogPart2": "Browse your computer for a completed template to upload.",
     "mountainBgTextForPreviewUploadGradesDialogPart1": "Are these Grades correct?",
-    "mountainBgTextForPreviewUploadGradesDialogPart2": "Review the Grades detected from the upload template, and save to complete."
+    "mountainBgTextForPreviewUploadGradesDialogPart2": "Review the Grades detected from the upload template, and save to complete.",
+    "mountainBgTextForAddJobRolesDialogPart1": "How would you like to add your Job Roles?",
+    "mountainBgTextForAddJobRolesDialogPart2": "Select whether you would like to add via an upload, through the community, or manually add.",
+    "testWFCPost": "Advisory Teacher",
+    "testWFCRole": "Assistant Head"
 }

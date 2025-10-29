@@ -15,9 +15,24 @@ export default class CommunityPage extends BasePage {
     //Locators
     private readonly addNewPayScaleBtnText = "Add New Pay Scale";
     private readonly addNewGradeBtnText = "Add New Grading Structure";
+    private readonly addJobRoleBtnText = "Add New Job Role";
+    private readonly addManuallyBtnText = "Add Manually";
     private readonly communityPayScalesLocator = ".tree:has-text('Pay Scales')";
     private readonly communityGradesLocator = ".tree:has-text('Grades')";
+    private readonly communityJobRolesLocator = ".tree:has-text('Job Roles')";
     private readonly nameInputLocator = "div:has-text('Name:') + div input";
+    private readonly jobRoleNameInputLocator =
+        "div:has-text('Job Role Name:') + div input";
+    private readonly wfcPostDropdownLocator =
+        "div:has-text('WFC Post:') + div input.e-dropdownlist";
+    private readonly wfcPostDropdownListLocator =
+        "div.e-dropdownbase + .e-list-item:has-text('%TEXT%')";
+    private readonly wfcRoleDropdownListLocator =
+        "div.e-dropdownbase + .e-list-item:has-text('%TEXT%')";
+    // div.e-dropdownbase
+    private readonly wfcRoleDropdownLocator =
+        "div:has-text('WFC Role:') + div input.e-dropdownlist";
+    // e-dropdownlist
     private readonly descrInputLocator =
         "div:has-text('Description:') + div input";
     private readonly _fileUploadInputLocator = "#fileUpload";
@@ -95,11 +110,17 @@ export default class CommunityPage extends BasePage {
     async clickAddNewGradeBtn(): Promise<void> {
         await this.clickButtonUsingRole(this.addNewGradeBtnText);
     }
+    async clickAddNewJobRoleBtn(): Promise<void> {
+        await this.clickButtonUsingRole(this.addJobRoleBtnText);
+    }
     async clickPayScalesLink(): Promise<void> {
         await this.click(this.communityPayScalesLocator);
     }
     async clickGradesLink(): Promise<void> {
         await this.click(this.communityGradesLocator);
+    }
+    async clickJobRolesLink(): Promise<void> {
+        await this.click(this.communityJobRolesLocator);
     }
     async fillNameInput(name: string): Promise<void> {
         await this.fill(this.nameInputLocator, name);
@@ -107,6 +128,25 @@ export default class CommunityPage extends BasePage {
 
     async fillDescrInput(descr: string): Promise<void> {
         await this.fill(this.descrInputLocator, descr);
+    }
+    async fillJobRoleNameInput(name: string): Promise<void> {
+        await this.fill(this.jobRoleNameInputLocator, name);
+    }
+    async clickWFCPost(): Promise<void> {
+        await this.click(this.wfcPostDropdownLocator);
+    }
+    async selectWFCPost(post: string): Promise<void> {
+        await this.click(
+            this.wfcPostDropdownListLocator.replace("%TEXT%", post)
+        );
+    }
+    async clickWFCRole(): Promise<void> {
+        await this.click(this.wfcPostDropdownLocator);
+    }
+    async selectWFCRole(role: string): Promise<void> {
+        await this.click(
+            this.wfcRoleDropdownListLocator.replace("%TEXT%", role)
+        );
     }
     /**
      * Logs all values from the left column of the uploaded table.
@@ -214,5 +254,8 @@ export default class CommunityPage extends BasePage {
     }
     async toggleShowHidden(): Promise<void> {
         await this.page.locator(this.showHiddenToggleLocator).click();
+    }
+    async clickAddManuallyJobRoles(): Promise<void> {
+        await this.clickButtonUsingRole(this.addManuallyBtnText);
     }
 }

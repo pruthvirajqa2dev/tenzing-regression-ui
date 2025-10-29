@@ -118,7 +118,7 @@ export default abstract class BasePage {
      * @param value
      */
     async selectOption(locator: string, value: string) {
-        await this.page.locator(locator).selectOption(value);
+        await this.page.locator(locator).first().selectOption(value);
     }
 
     // Advanced element interaction methods
@@ -467,6 +467,9 @@ export default abstract class BasePage {
     }
     async clickDialogSaveBtn(): Promise<void> {
         await this.clickButtonUsingRole("Save");
+    }
+    async clickDialogSaveAndExitBtn(): Promise<void> {
+        await this.clickButtonUsingRole("Save And Exit");
     }
     async verifyDialogHeaderContent(
         expectedHeaderContent: string
