@@ -2,12 +2,12 @@ name: Playwright Tests
 
 on:
     workflow_dispatch:
-    push:
-        branches: [main]
-    pull_request:
-        branches: [main]
-    schedule:
-        - cron: "0 8 * * *" # Runs at 8:00 AM UTC daily (UK time during winter)
+    # push:
+    #     branches: [main]
+    # pull_request:
+    #     branches: [main]
+    # schedule:
+    #     - cron: "0 8 * * *" # Runs at 8:00 AM UTC daily (UK time during winter)
 
 jobs:
     playwright-test:
@@ -24,7 +24,7 @@ jobs:
             fail-fast: false
             matrix:
                 project: [chromium]
-                shardIndex: [1,2]
+                shardIndex: [1, 2]
                 shardTotal: [2]
 
         steps:
