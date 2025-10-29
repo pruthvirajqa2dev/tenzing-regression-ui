@@ -1,3 +1,4 @@
 {
-    "payscalesPath": "src//data//Excels//UK_Education_Payscale_Sample.xlsx"
+    "payscalesPath": "src//data//Excels//UK_Education_Payscale_Sample.xlsx",
+    "gradesPath": "src//data//Excels//GradeSet_TemplateLeela.xlsx"
 }
